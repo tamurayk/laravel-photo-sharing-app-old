@@ -1,15 +1,17 @@
 <?php
+declare(strict_types=1);
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\User\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\User\AppController;
+use App\Models\Eloquents\User;
 use App\Providers\RouteServiceProvider;
-use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
-class RegisterController extends Controller
+class RegisterController extends AppController
 {
     /*
     |--------------------------------------------------------------------------
@@ -57,10 +59,8 @@ class RegisterController extends Controller
     }
 
     /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
+     * @param array $data
+     * @return mixed
      */
     protected function create(array $data)
     {
@@ -69,5 +69,29 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    /**
+     * Override \Illuminate\Foundation\Auth\RegistersUsers::showRegistrationForm
+     *
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        return view('user.auth.register');
+    }
+
+    /**
+     * Override \Illuminate\Foundation\Auth\RegistersUsers::registered
+     *
+     * Get the guard to be used during registration.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard('user');
     }
 }

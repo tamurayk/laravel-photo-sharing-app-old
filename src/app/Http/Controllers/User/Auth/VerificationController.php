@@ -1,12 +1,13 @@
 <?php
+declare(strict_types=1);
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\User\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\User\AppController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 
-class VerificationController extends Controller
+class VerificationController extends AppController
 {
     /*
     |--------------------------------------------------------------------------
