@@ -1,12 +1,12 @@
 <?php
+declare(strict_types=1);
 
-namespace App;
+namespace App\Models\Eloquents;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Interfaces\UserInterface;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements UserInterface
 {
     use Notifiable;
 
